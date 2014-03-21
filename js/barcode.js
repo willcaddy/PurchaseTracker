@@ -64,7 +64,7 @@ var app = {
 				var req = new XMLHttpRequest();
 			req.open('GET',url,true);
 			
-			req.onreadystatechange=function()
+			req.onreadystatechange=function(getJSON)
   			{
 				
 				alert("Response recieved " + xmlhttp.readyState + ", " + xmlhttp.status);
