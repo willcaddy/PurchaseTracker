@@ -79,7 +79,7 @@ var app = {
 			
 						var ParsedJSON = JSON.parse(XMLHttpResponse);
 			
-						alert(ParsedJSON.product.barcode);			
+						alert(ParsedJSON.product.EAN13);			
 			
 						alert(url);
 					}
