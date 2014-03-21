@@ -53,5 +53,5 @@
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
 
-    <!-- content src="http://www.w3.org/2010/05/video/mediaevents.html" / -->
+	<access origin="*" />
 </widget>

@@ -61,6 +61,8 @@ var app = {
 				var apikey = "C3BF9F2C53232A92";
 			var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			
+				alert(url);
+			
 			var req = new XMLHttpRequest();
 			req.open('GET','url',true);
 			
