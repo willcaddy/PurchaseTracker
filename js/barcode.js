@@ -59,32 +59,36 @@ var app = {
         scanner.scan( function (result) { 
 				var barcode = result.text;
 				var apikey = "C3BF9F2C53232A92";
-			var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
+				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			
+			
+				alert(url);
+				
 				var req = new XMLHttpRequest();
-			req.open('GET',url,true);
+				req.open('GET', url, true);
+				
 			
-			req.onreadystatechange=function(getJSON)
-  			{
+				req.onreadystatechange=function()
+  				{
 				
-				alert("Response recieved " + xmlhttp.readyState + ", " + xmlhttp.status);
+					alert("Response recieved " + xmlhttp.readyState + ", " + xmlhttp.status);
 				
-  				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				{
-					 var XMLHttpResponse = req.responseText;
+  					if (xmlhttp.readyState==4 && xmlhttp.status==200)
+					{
+					 	var XMLHttpResponse = req.responseText;
 			
 						var ParsedJSON = JSON.parse(XMLHttpResponse);
 			
 						alert(ParsedJSON);			
 			
 						alert(url);
+					}
+					else {
+						alert("Something went horribly wrong: " + xmlhttp.readyState + ", " + xmlhttp.status);
+					}
 				}
-				else {
-					alert("Something went horribly wrong: " + xmlhttp.readyState + ", " + xmlhttp.status);
-				}
-			}
 	
-			req.send(null);
+				req.send(null);
 			
    
 			
