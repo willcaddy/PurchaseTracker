@@ -75,9 +75,11 @@ var app = {
 					{
 					 	var XMLHttpResponse = request.responseText;
 			
+						alert(XMLHttpResponse);	
+			
 						var ParsedJSON = JSON.parse(XMLHttpResponse);
 			
-						alert(ParsedJSON);			
+						alert(ParsedJSON.product.barcode);			
 			
 						alert(url);
 					}
