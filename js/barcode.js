@@ -65,12 +65,10 @@ var app = {
 				alert(url);
 				
 				var req = new XMLHttpRequest();
-				req.open('GET', url, true);
+				req.open('GET', url, false);
 				
+				req.send(null);
 			
-				req.onreadystatechange=function()
-  				{
-				
 					alert("Response recieved " + xmlhttp.readyState + ", " + xmlhttp.status);
 				
   					if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -86,9 +84,6 @@ var app = {
 					else {
 						alert("Something went horribly wrong: " + xmlhttp.readyState + ", " + xmlhttp.status);
 					}
-				}
-	
-				req.send(null);
 			
    
 			
