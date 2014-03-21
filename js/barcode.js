@@ -64,16 +64,16 @@ var app = {
 			
 				alert(url);
 				
-				var req = new XMLHttpRequest();
-				req.open('GET', url, false);
+				var request = new XMLHttpRequest();
+				request.open('GET', url, false);
 				
-				req.send(null);
+				request.send(null);
 			
-					alert("Response recieved " + xmlhttp.readyState + ", " + xmlhttp.status);
+					alert("Response recieved " + request.readyState + ", " + request.status);
 				
-  					if (xmlhttp.readyState==4 && xmlhttp.status==200)
+  					if (request.readyState==4 && request.status==200)
 					{
-					 	var XMLHttpResponse = req.responseText;
+					 	var XMLHttpResponse = request.responseText;
 			
 						var ParsedJSON = JSON.parse(XMLHttpResponse);
 			
@@ -82,7 +82,7 @@ var app = {
 						alert(url);
 					}
 					else {
-						alert("Something went horribly wrong: " + xmlhttp.readyState + ", " + xmlhttp.status);
+						alert("Something went horribly wrong: " + request.readyState + ", " + request.status);
 					}
 			
    
