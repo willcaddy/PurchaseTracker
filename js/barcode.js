@@ -29,7 +29,6 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
         document.getElementById('encode').addEventListener('click', this.encode, false);
-		document.getElementById('test').addEventListener('click', this.retrieveTestData, false);
     },
 
     // deviceready Event Handler
@@ -59,19 +58,7 @@ var app = {
 
         scanner.scan( function (result) { 
 				var barcode = result.text;
-				retrieveData(barcode);
-			}
-		);
-	},
-			
-	retrieveTestData: function() {
-		alert("testing with 8888002087500");
-		retrieveData("8888002087500");
-	}
-	
-			
-	retrieveData: function(barcode) {
-			var apikey = "C3BF9F2C53232A92";
+				var apikey = "C3BF9F2C53232A92";
 			var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			
 			var req = new XMLHttpRequest();
