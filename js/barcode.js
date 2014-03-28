@@ -37,8 +37,19 @@ var app = {
     // function, we must explicity call `app.receivedEvent(...);`
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		app.createDatabase();
     },
 
+	createDatabase:function() {
+		alert("Creating Database...")
+
+var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
+		db.transaction(function (tx) {  
+		alert("Creating Tables...")
+   		tx.executeSql('CREATE TABLE IF NOT EXISTS RECIPIENTS (id UNIQUE, first_name TEXT, last_name TEXT)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS ITEMS (id UNIQUE, product_name TEXT, product_desc TEXT)');
+		});
+	},
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
