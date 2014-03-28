@@ -37,7 +37,6 @@ var app = {
     // function, we must explicity call `app.receivedEvent(...);`
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-		app.createDatabase();
     },
 
 	createDatabase: function() {
@@ -66,6 +65,12 @@ var app = {
 
     scan: function() {
         console.log('scanning');
+		
+		
+		//this is a stupid place to put this
+		app.createDatabase();
+		
+		
 		
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
