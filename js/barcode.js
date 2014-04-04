@@ -28,7 +28,7 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
-        document.getElementById('encode').addEventListener('click', this.encode, false);
+       // document.getElementById('encode').addEventListener('click', this.encode, false);
 		document.getElementById('test').addEventListener('click', this.test, false);
     },
 
@@ -75,13 +75,14 @@ var app = {
 		
 		
 		
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+        /*var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
-        scanner.scan( function (result) {
+        scanner.scan( function (result) {*/
 				var testcode = "5449000000996"; 
-				var barcode = result.text;
+			//	var barcode = result.text;
 				var apikey = "C3BF9F2C53232A92";
-				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
+				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + testcode;
+			//	var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			
 			
 				alert(url);
@@ -89,7 +90,7 @@ var app = {
 				var request = new XMLHttpRequest();
 				request.open('GET', url, false);
 				
-				request.send(null);
+				request.send();
 			
 					alert("Response recieved " + request.readyState + ", " + request.status);
 				
@@ -136,9 +137,9 @@ var app = {
             }
             */
 
-        }, function (error) { 
+        /*}, function (error) { 
             console.log("Scanning failed: ", error); 
-        } );
+        } );*/
     },
 
     encode: function() {
@@ -155,5 +156,8 @@ var app = {
 	
 	test: function() {
 		alert("Test");
+		
+		
+		
 	}
 };
