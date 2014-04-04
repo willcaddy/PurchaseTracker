@@ -78,11 +78,10 @@ var app = {
 		
         /*var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
-        scanner.scan( function (result) {*/
-				var testcode = "5449000000996"; 
-			//	var barcode = result.text;
+        scanner.scan( function (result) {*/ 
+				var barcode = "5449000000996"; //result.text;
 				var apikey = "C3BF9F2C53232A92";
-				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + testcode;
+				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			//	var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			
 			
@@ -109,7 +108,8 @@ var app = {
 						
 						productName = ParsedJSON.product.attributes.product;
 						productDesc = ParsedJSON.product.attributes.description;
-						
+		
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
 		db.transaction(function (tx) {
 			tx.executeSql('INSERT INTO items (id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
 		});
@@ -126,13 +126,14 @@ var app = {
             "Format: " + result.format + "\n" + 
             "Cancelled: " + result.cancelled);  */
 
-           console.log("Scanner result: \n" +
+           /*console.log("Scanner result: \n" +
                 "text: " + result.text + "\n" +
                 "format: " + result.format + "\n" +
                 "cancelled: " + result.cancelled + "\n");
             document.getElementById("info").innerHTML = result.text;
-            console.log(result);
-            /*
+            console.log(result);*/
+            
+			/*
             if (args.format == "QR_CODE") {
                 window.plugins.childBrowser.showWebPage(args.text, { showLocationBar: false });
             }
