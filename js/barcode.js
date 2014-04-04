@@ -47,8 +47,8 @@ var app = {
 			
 			alert("Creating Tables...");
 			
-			tx.executeSql('CREATE TABLE IF NOT EXISTS RECIPIENTS (id UNIQUE, first_name TEXT, last_name TEXT)');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS ITEMS (id UNIQUE, product_name TEXT, product_desc TEXT)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (id UNIQUE, first_name TEXT, last_name TEXT)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS items (id UNIQUE, product_name TEXT, product_desc TEXT)');
 		});
 	},
     // Update DOM on a Received Event
@@ -100,6 +100,14 @@ var app = {
 						alert(ParsedJSON.product.attributes.product);			
 			
 						alert(url);
+						
+						productName = ParsedJSON.product.attributes.product;
+						productDesc = ParsedJSON.product.attributes.description;
+						
+		db.transaction(function (tx) {
+			tx.executeSql('INSERT INTO items (id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
+		});
+						
 					}
 					else {
 						alert("Something went horribly wrong: " + request.readyState + ", " + request.status);
