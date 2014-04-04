@@ -30,6 +30,8 @@ var app = {
         document.getElementById('scan').addEventListener('click', this.scan, false);
        // document.getElementById('encode').addEventListener('click', this.encode, false);
 		document.getElementById('test').addEventListener('click', this.test, false);
+		//this is a stupid place to put this
+		app.createDatabase();
     },
 
     // deviceready Event Handler
@@ -70,8 +72,7 @@ var app = {
         console.log('scanning');
 		
 		
-		//this is a stupid place to put this
-		app.createDatabase();
+		
 		
 		
 		
