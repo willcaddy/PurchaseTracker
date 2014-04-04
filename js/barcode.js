@@ -29,6 +29,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
         document.getElementById('encode').addEventListener('click', this.encode, false);
+		document.getElementById('test').addEventListener('click', this.test, false);
     },
 
     // deviceready Event Handler
@@ -63,6 +64,8 @@ var app = {
         console.log('Received Event: ' + id);
     },
 
+	
+
     scan: function() {
         console.log('scanning');
 		
@@ -74,7 +77,8 @@ var app = {
 		
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
-        scanner.scan( function (result) { 
+        scanner.scan( function (result) {
+				var testcode = "5449000000996"; 
 				var barcode = result.text;
 				var apikey = "C3BF9F2C53232A92";
 				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
@@ -147,6 +151,9 @@ var app = {
           }
         );
 
-    }
-
+    },
+	
+	test: function() {
+		alert("Test");
+	}
 };
