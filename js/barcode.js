@@ -29,7 +29,6 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
        // document.getElementById('encode').addEventListener('click', this.encode, false);
-		document.getElementById('test').addEventListener('click', this.test, false);
 		//this is a stupid place to put this
 		app.createDatabase();
     },
@@ -155,11 +154,4 @@ var app = {
         );
 
     },
-	
-	test: function() {
-		alert("Test");
-		
-		
-		
-	}
 };
