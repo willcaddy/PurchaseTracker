@@ -28,7 +28,6 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
-       // document.getElementById('encode').addEventListener('click', this.encode, false);
 		//this is a stupid place to put this
 		app.createDatabase();
     },
@@ -42,15 +41,12 @@ var app = {
     },
 
 	createDatabase: function() {
-		alert("Creating Database...");
 		
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 			db.transaction(function (tx) {  
-			
-			alert("Creating Tables...");
-			
-			tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (id UNIQUE, first_name TEXT, last_name TEXT)');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS items (id UNIQUE, product_name TEXT, product_desc TEXT)');
+					
+				tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS items (id UNIQUE, product_name TEXT, product_desc TEXT)');
 		});
 	},
     // Update DOM on a Received Event
@@ -65,7 +61,18 @@ var app = {
         console.log('Received Event: ' + id);
     },
 
-	
+	addRecipient: function() {
+		
+		var formFirstName = $('#formFirstname').val();
+		
+		var formLastName = $('#formLastname').val();
+		
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
+					
+		db.transaction(function (tx) {
+			tx.executeSql('INSERT INTO recipients (id, first_name, last_name) VALUES (?,?,?)', [null, formFirstName, formLastName]);
+		});
+	},
 
     scan: function() {
         console.log('scanning');
@@ -81,8 +88,6 @@ var app = {
 				var barcode = "5449000000996"; //result.text;
 				var apikey = "C3BF9F2C53232A92";
 				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
-			//	var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
-			
 			
 				alert(url);
 				
@@ -108,10 +113,10 @@ var app = {
 						productName = ParsedJSON.product.attributes.product;
 						productDesc = ParsedJSON.product.attributes.description;
 		
-		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
-		db.transaction(function (tx) {
-			tx.executeSql('INSERT INTO items (id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
-		});
+				var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
+					db.transaction(function (tx) {
+						tx.executeSql('INSERT INTO items (id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
+				});
 						
 					}
 					else {
@@ -141,17 +146,5 @@ var app = {
         /*}, function (error) { 
             console.log("Scanning failed: ", error); 
         } );*/
-    },
-
-    encode: function() {
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-        scanner.encode(scanner.Encode.TEXT_TYPE, "http://www.nhl.com", function(success) {
-            alert("encode success: " + success);
-          }, function(fail) {
-            alert("encoding failed: " + fail);
-          }
-        );
-
     },
 };
