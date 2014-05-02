@@ -29,7 +29,7 @@
 
 <li></li>
 
-<ul data-role="listview">
+<ul id="recipientlist" data-role="listview">
 			<li><a href="#page2">Recipient 1</a></li>
             <li><a href="#page3">Recipient 2</a></li>
 			<li><a href="#page4">Recipient 3</a></li>
@@ -39,7 +39,7 @@
 </div>
 
 	<div data-role="header">
-     <a href="#mypanel" data-role="button" data-inline="true" data-mini="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span></span></a>
+     <a href="#mypanel" data-role="button" data-inline="true" data-mini="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-c" id="mainmenu"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span></span></a>
      
 <h1>Page One</h1>
 
@@ -110,7 +110,7 @@
 
 	<input type="text" name="firstname" id="formFirstname" placeholder="First name">
     <input type="text" name="lastname" id="formLastname" placeholder="Last name">
-    <button class="ui-btn ui-shadow ui-btn-b" onClick="app.addRecipient()">Add</button>
+    <button class="ui-btn ui-shadow ui-btn-b" onClick="app.addRecipient();">Add</button>
         
         
         

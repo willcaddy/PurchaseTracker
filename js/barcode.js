@@ -28,6 +28,7 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
+		document.getElementById('mainmenu').addEventListener('click',this.menu, false);
 		//this is a stupid place to put this
 		app.createDatabase();
     },
@@ -72,6 +73,13 @@ var app = {
 		db.transaction(function (tx) {
 			tx.executeSql('INSERT INTO recipients (id, first_name, last_name) VALUES (?,?,?)', [null, formFirstName, formLastName]);
 		});
+		
+		document.getElementById('formFirstname').value=null;
+		
+		document.getElementById('formLastname').value=null;
+		
+		alert("Successfully added recipient!");
+		
 	},
 
     scan: function() {
@@ -147,4 +155,31 @@ var app = {
             console.log("Scanning failed: ", error); 
         } );*/
     },
+	
+	menu: function() {
+				
+				//clear recipient list
+		$( '#recipientlist' ).empty();
+		
+		//load recipients from db
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
+		
+		db.transaction(function (tx) {
+			tx.executeSql('SELECT first_name, last_name FROM recipients', [], function (tx, results) {
+			
+				
+				for(var i=0; i<results.rows.length; i++) {					
+							//loop over 
+							
+							var li = '<li class="ui-last-child"><a href="" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+							$('#recipientlist').append(li);
+				
+				}
+				
+			});
+		});
+		
+	}
+		
+		
 };
