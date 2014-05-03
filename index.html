@@ -17,114 +17,137 @@
 </head> 
 <body> 
 
-<div data-role="page" id="page">
+<!--------------------------------Page one start------------------------------->
 
-<div data-role="panel" id="mypanel" data-position="left" data-display="reveal">
-
-<Script>$( "#mypanel" ).panel( "open" , optionsHash );</script>
-
-<h1 id="menu_head">Main Menu</h1>
-
-<a href="#addRecipient" class="ui-btn ui-shadow ui-btn-b">Add Recipient</a>
-
-<li></li>
-
-<ul id="recipientlist" data-role="listview">
-			<li><a href="#page2">Recipient 1</a></li>
-            <li><a href="#page3">Recipient 2</a></li>
-			<li><a href="#page4">Recipient 3</a></li>
-		</ul>
-
-
-</div>
-
-	<div data-role="header">
-     <a href="#mypanel" data-role="button" data-inline="true" data-mini="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-c" id="mainmenu"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span></span></a>
-     
-<h1>Page One</h1>
-
-
-
-<a href="#" class="topcoat-button" id="scan">Scan Item</a>
-  
-
-	</div>
-	<div data-role="content">	
-		<ul data-role="listview">
-			<li><a href="#page2">Item 1</a></li>
-            <li><a href="#page3">Item 2</a></li>
-			<li><a href="#page4">Item 3</a></li>
-		</ul>		
-	</div>
-	<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div>
-</div>
-
-<div data-role="page" id="page2">
-	<div data-role="header">
-    <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-		<h1>Page Two</h1>
-	</div>
-	<div data-role="content">	
-		Content		
-	</div>
-	<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div>
-</div>
-
-<div data-role="page" id="page3">
-	<div data-role="header">
-    <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-		<h1>Page Three</h1>
-	</div>
-	<div data-role="content">	
-		Content		
-	</div>
-	<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div>
-</div>
-
-<div data-role="page" id="page4">
-<a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-	<div data-role="header">
-		<h1>Page Four</h1>
-	</div>
-	<div data-role="content">	
-		Content		
-	</div>
-	<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div>
-</div>
-
-<div data-role="page" id="addRecipient">
-	<div data-role="header">
-    <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-		<h1>Add Recipient</h1>
-	</div>
-	<div data-role="content">
-      
-
-	<input type="text" name="firstname" id="formFirstname" placeholder="First name">
-    <input type="text" name="lastname" id="formLastname" placeholder="Last name">
-    <button class="ui-btn ui-shadow ui-btn-b" onClick="app.addRecipient();">Add</button>
+    <div data-role="page" id="page">
         
+        <div data-role="panel" id="mypanel" data-position="left" data-display="reveal">
+            
+            <Script>$( "#mypanel" ).panel( "open" , optionsHash );</script>
+            
+            <h1 id="menu_head">Main Menu</h1>
+            
+            <a href="#addRecipient" class="ui-btn ui-shadow ui-btn-b">Add Recipient</a>
+            
+            <li></li>
+            
+            <ul id="recipientlist" data-role="listview">
+            </ul>
+        </div>
         
-        
-        
-        		
-  </div>
-  <div data-role="footer">
-		<h4>Page Footer</h4>
-	</div>
-</div>
+        <div data-role="header">
+            <a href="#mypanel" data-role="button" data-inline="true" data-mini="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-c" id="mainmenu"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span></span></a>
+            
+            <h1>Page One</h1>
 
-<script type="text/javascript">
-            app.initialize();
-        </script>
+            <a href="#" class="topcoat-button" id="scan">Scan Item</a>
+            
+        </div>
+        
+        <div data-role="content">	
+            <ul data-role="listview">
+                <li><a href="#page2">Item 1</a></li>
+                <li><a href="#page3">Item 2</a></li>
+                <li><a href="#page4">Item 3</a></li>
+            </ul>		
+        </div>
+            
+        <div data-role="footer">
+        	<h4></h4>
+        </div>
+    </div>
+
+<!--------------------------------Page one end-------------------------------->
+
+
+<!-------------------------------Page two start------------------------------->
+
+    <div data-role="page" id="page2">
+    
+        <div data-role="header">
+            <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
+            <h1>Page Two</h1>
+        </div>
+        
+        <div data-role="content">	
+        	Content		
+        </div>
+        
+        <div data-role="footer">
+            <h4></h4>
+        </div>
+    </div>
+
+<!--------------------------------Page one end-------------------------------->
+
+
+<!------------------------------Page three start------------------------------>
+
+    <div data-role="page" id="page3">
+    
+        <div data-role="header">
+        <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
+            <h1>Page Three</h1>
+        </div>
+        
+        <div data-role="content">	
+            Content		
+        </div>
+        
+        <div data-role="footer">
+            <h4></h4>
+        </div>
+    </div>
+
+<!-------------------------------Page three end------------------------------->
+
+
+<!-------------------------------Page four start------------------------------>
+
+    <div data-role="page" id="page4">
+    
+    	<a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
+    
+        <div data-role="header">
+            <h1></h1>
+        </div>
+        
+        <div data-role="content">	
+            Content		
+        </div>
+        
+        <div data-role="footer">
+            <h4></h4>
+        </div>
+    </div>
+
+<!-------------------------------Page four end-------------------------------->
+
+
+<!-------------------------Add recipient page stert--------------------------->
+
+    <div data-role="page" id="addRecipient">
+        <div data-role="header">
+            <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
+            <h1>Add Recipient</h1>
+        </div>
+        
+        <div data-role="content">
+            <input type="text" name="firstname" id="formFirstname" placeholder="First name">
+            <input type="text" name="lastname" id="formLastname" placeholder="Last name">
+            <button class="ui-btn ui-shadow ui-btn-b" onClick="app.addRecipient();">Add</button>
+        </div>
+        
+    <div data-role="footer">
+    	<h4></h4>
+    </div>
+    </div>
+
+<!--------------------------Add recipient page end---------------------------->
+
+	<script type="text/javascript">
+    	app.initialize();
+    </script>
 
 </body>
 </html>

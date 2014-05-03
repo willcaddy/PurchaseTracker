@@ -45,7 +45,6 @@ var app = {
 		
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 			db.transaction(function (tx) {  
-					
 				tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
 				tx.executeSql('CREATE TABLE IF NOT EXISTS items (id UNIQUE, product_name TEXT, product_desc TEXT)');
 		});
@@ -84,12 +83,7 @@ var app = {
 
     scan: function() {
         console.log('scanning');
-		
-		
-		
-		
-		
-		
+
         /*var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
         scanner.scan( function (result) {*/ 
@@ -157,8 +151,8 @@ var app = {
     },
 	
 	menu: function() {
-				
-				//clear recipient list
+	
+	//clear recipient list
 		$( '#recipientlist' ).empty();
 		
 		//load recipients from db
@@ -167,19 +161,19 @@ var app = {
 		db.transaction(function (tx) {
 			tx.executeSql('SELECT first_name, last_name FROM recipients', [], function (tx, results) {
 			
+			
+					for(var i=0; i<results.rows.length; i++) {					
+					//loop over 
+					
+						var li = '<li class="ui-last-child"><a href="" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+						$('#recipientlist').append(li);
+					
+					}
 				
-				for(var i=0; i<results.rows.length; i++) {					
-							//loop over 
-							
-							var li = '<li class="ui-last-child"><a href="" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
-							$('#recipientlist').append(li);
-				
-				}
-				
+				});
 			});
-		});
 		
-	}
-		
-		
-};
+		}
+	
+	
+	};
