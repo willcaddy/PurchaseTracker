@@ -44,9 +44,11 @@ var app = {
 	createDatabase: function() {
 		
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
-			db.transaction(function (tx) {  
-				tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
-				tx.executeSql('CREATE TABLE IF NOT EXISTS items (id UNIQUE, product_name TEXT, product_desc TEXT)');
+			db.transaction(function (tx) { 
+				tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (recipient_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS items (item_id UNIQUE, product_name TEXT, product_desc TEXT)');
+				
+				tx.executeSql('CREATE TABLE IF NOT EXISTS purchases (rec_id TEXT, ite_id TEXT)');
 		});
 	},
     // Update DOM on a Received Event
@@ -70,7 +72,7 @@ var app = {
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
 					
 		db.transaction(function (tx) {
-			tx.executeSql('INSERT INTO recipients (id, first_name, last_name) VALUES (?,?,?)', [null, formFirstName, formLastName]);
+			tx.executeSql('INSERT INTO recipients (recipient_id, first_name, last_name) VALUES (?,?,?)', [null, formFirstName, formLastName]);
 		});
 		
 		document.getElementById('formFirstname').value=null;
@@ -117,7 +119,7 @@ var app = {
 		
 				var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
 					db.transaction(function (tx) {
-						tx.executeSql('INSERT INTO items (id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
+						tx.executeSql('INSERT INTO items (item_id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
 				});
 						
 					}
@@ -159,13 +161,13 @@ var app = {
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
 		
 		db.transaction(function (tx) {
-			tx.executeSql('SELECT first_name, last_name FROM recipients', [], function (tx, results) {
+			tx.executeSql('SELECT * FROM recipients', [], function (tx, results) {
 			
 			
 					for(var i=0; i<results.rows.length; i++) {					
 					//loop over 
 					
-						var li = '<li class="ui-last-child"><a href="" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+						var li = '<li class="ui-last-child"><a href="#userItems" id="' + results.rows.item(i).recipient_id + '" onClick="app.onUserButtonClick(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
 						$('#recipientlist').append(li);
 					
 					}
@@ -173,7 +175,23 @@ var app = {
 				});
 			});
 		
-		}
+		},
 	
+	onUserButtonClick: function(recipient_id) {
+		
+		alert(recipient_id);
+			
+		//wipe userItems page
+		
+		//load list of product ID's related to this user ID	from  purchases table
+		
+		//load list of product details from items table
+		
+		//loop over list of items and add details to the userItems page elements
+		//$('someItemInaList').append('<div> <p>some details about product </p> </div>')
+		
+		
+	}
+
 	
-	};
+};
