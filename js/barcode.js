@@ -179,9 +179,14 @@ var app = {
 	
 	onUserButtonClick: function(recipient_id) {
 		
-		alert(recipient_id);
-			
+		
 		//wipe userItems page
+		alert(recipient_id);
+		
+		$('#userItemsList').empty();
+		
+		
+		
 		
 		//load list of product ID's related to this user ID	from  purchases table
 		
