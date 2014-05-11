@@ -45,7 +45,9 @@ var app = {
 		
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 			db.transaction(function (tx) { 
+				
 				tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (recipient_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
+				
 				tx.executeSql('CREATE TABLE IF NOT EXISTS items (item_id UNIQUE, product_name TEXT, product_desc TEXT)');
 				
 				tx.executeSql('CREATE TABLE IF NOT EXISTS purchases (rec_id TEXT, ite_id TEXT)');
@@ -177,26 +179,48 @@ var app = {
 		
 		},
 	
-	onUserButtonClick: function(recipient_id) {
-		
-		
-		//wipe userItems page
-		alert(recipient_id);
-		
-		$('#userItemsList').empty();
-		
-		
-		
-		
-		//load list of product ID's related to this user ID	from  purchases table
-		
-		//load list of product details from items table
-		
-		//loop over list of items and add details to the userItems page elements
-		//$('someItemInaList').append('<div> <p>some details about product </p> </div>')
-		
-		
-	}
+onUserButtonClick: function(recipient_id) {
+               
+               
+                //wipe userItems page
+                alert(recipient_id);
+               
+                $('#userItemsList').empty();
+               
+                                //load list of product ID's related to this user ID     from  purchases table          
+                var q = "";
+                        for each (var i in labels)
+                        q += (q == "" ? "" : ", ") + "?";
+               
+                        db.transaction(function (tx ,itemResults) {
+                                tx.executeSql('SELECT ite_id FROM purchases WHERE lables IN (' + q + ')', labels, function (tx, data) {
+                                resultCallback(data);
+                               
+                                tx.executeSql('SELECT product_name FROM purchases WHERE ite_id=' + itemResults.rows.item.item_id)
+                               
+                                for(var i=0; i<itemResults.rows.length; i++) {                                 
+                                        //loop over
+                                       
+                                                var div = '<div id="userItemsList">' + results.rows.item(i).recipient_id + '</div>';
+                                               
+                                                $('#recipientlist').append(div);
+                                       
+                                        }
+                               
+                        });
+                       
+                       
+                });
+               
+                //load list of product details from items table
+               
+               
+                //loop over list of items and add details to the userItems page elements
+                //$('someItemInaList').append('<div> <p>some details about product </p> </div>')
+               
+               
+               
+        }
 
 	
 };
