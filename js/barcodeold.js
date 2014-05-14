@@ -16,19 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app =
-{
+var app = {
     // Application Constructor
-    initialize: function()
-	{
+    initialize: function() {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // `load`, `deviceready`, `offline`, and `online`.
-    bindEvents: function()
-	{
+    bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.getElementById('scan').addEventListener('click', this.scan, false);
 		document.getElementById('mainmenu').addEventListener('click',this.menu, false);
@@ -40,33 +37,33 @@ var app =
     //
     // The scope of `this` is the event. In order to call the `receivedEvent`
     // function, we must explicity call `app.receivedEvent(...);`
-    onDeviceReady: function()
-	{
+    onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
 
-	createDatabase: function()
-	{
-		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
-		db.transaction(function (tx)
-		{ 
-			tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (recipient_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
-			
-			tx.executeSql('CREATE TABLE IF NOT EXISTS items (item_id UNIQUE, product_name TEXT, product_desc TEXT)');
-			
-			tx.executeSql('CREATE TABLE IF NOT EXISTS purchases (rec_id TEXT, ite_id TEXT)');
-			
-			//Test results
+	createDatabase: function() {
 		
-//			tx.executeSql('INSERT INTO purchases VALUES (1,5449000000996)');
-//			
-//			tx.executeSql('INSERT INTO purchases VALUES (2,5449000000996)');
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
+			db.transaction(function (tx) { 
+				
+				tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (recipient_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
+				
+				tx.executeSql('CREATE TABLE IF NOT EXISTS items (item_id UNIQUE, product_name TEXT, product_desc TEXT)');
+				
+				tx.executeSql('CREATE TABLE IF NOT EXISTS purchases (rec_id TEXT, ite_id TEXT)');
+				
+				//Test results
+				
+//				tx.executeSql('INSERT INTO purchases VALUES (1,5449000000996,)');
+//				
+//				tx.executeSql('INSERT INTO purchases VALUES (2,5449000000996,)');
+				
+				
+				
 		});
 	},
-	
     // Update DOM on a Received Event
-    receivedEvent: function(id)
-	{
+    receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -77,16 +74,15 @@ var app =
         console.log('Received Event: ' + id);
     },
 
-	addRecipient: function()
-	{
+	addRecipient: function() {
+		
 		var formFirstName = $('#formFirstname').val();
 		
 		var formLastName = $('#formLastname').val();
 		
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
 					
-		db.transaction(function (tx)
-		{
+		db.transaction(function (tx) {
 			tx.executeSql('INSERT INTO recipients (recipient_id, first_name, last_name) VALUES (?,?,?)', [null, formFirstName, formLastName]);
 		});
 		
@@ -95,54 +91,55 @@ var app =
 		document.getElementById('formLastname').value=null;
 		
 		alert("Successfully added recipient!");
+		
 	},
 
-    scan: function()
-	{
+    scan: function() {
         console.log('scanning');
 
         /*var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
         scanner.scan( function (result) {*/ 
-		var barcode = "5449000000996"; //result.text;
-		var apikey = "C3BF9F2C53232A92";
-		var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
-	
-		alert(url);
-		
-		var request = new XMLHttpRequest();
-		request.open('GET', url, false);
-		
-		request.send();
-	
-		alert("Response recieved " + request.readyState + ", " + request.status);
-	
-		if (request.readyState==4 && request.status==200)
-		{
-			var XMLHttpResponse = request.responseText;
-
-			alert(XMLHttpResponse);	
-
-			var ParsedJSON = JSON.parse(XMLHttpResponse);
-
-			alert(ParsedJSON.product.attributes.product);			
-
-			alert(url);
+				var barcode = "5449000000996"; //result.text;
+				var apikey = "C3BF9F2C53232A92";
+				var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 			
-			productName = ParsedJSON.product.attributes.product;
-			productDesc = ParsedJSON.product.attributes.description;
-
-			var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
-			db.transaction(function (tx)
-			{
-				tx.executeSql('INSERT INTO items (item_id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
-			});
+				alert(url);
+				
+				var request = new XMLHttpRequest();
+				request.open('GET', url, false);
+				
+				request.send();
 			
-		}
-		else
-		{
-			alert("Something went horribly wrong: " + request.readyState + ", " + request.status);
-		}
+					alert("Response recieved " + request.readyState + ", " + request.status);
+				
+  					if (request.readyState==4 && request.status==200)
+					{
+					 	var XMLHttpResponse = request.responseText;
+			
+						alert(XMLHttpResponse);	
+			
+						var ParsedJSON = JSON.parse(XMLHttpResponse);
+			
+						alert(ParsedJSON.product.attributes.product);			
+			
+						alert(url);
+						
+						productName = ParsedJSON.product.attributes.product;
+						productDesc = ParsedJSON.product.attributes.description;
+		
+				var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
+					db.transaction(function (tx) {
+						tx.executeSql('INSERT INTO items (item_id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
+				});
+						
+					}
+					else {
+						alert("Something went horribly wrong: " + request.readyState + ", " + request.status);
+					}
+			
+   
+			
 			/*alert("We got a barcode\n" + 
             "Result: " + result.text + "\n" + 
             "Format: " + result.format + "\n" + 
@@ -166,32 +163,34 @@ var app =
         } );*/
     },
 	
-	menu: function()
-	{
-		//clear recipient list
+	menu: function() {
+	
+	//clear recipient list
 		$( '#recipientlist' ).empty();
 		
 		//load recipients from db
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
 		
-		db.transaction(function (tx)
-		{
-			tx.executeSql('SELECT * FROM recipients', [], function (tx, results)
-			{
-				for(var i=0; i<results.rows.length; i++)
-				{					
-				//loop over 
+		db.transaction(function (tx) {
+			tx.executeSql('SELECT * FROM recipients', [], function (tx, results) {
+			
+			
+					for(var i=0; i<results.rows.length; i++) {					
+					//loop over 
+					
+						var li = '<li class="ui-last-child"><a href="#userItems" id="' + results.rows.item(i).recipient_id + '" onClick="app.onUserButtonClick(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+						$('#recipientlist').append(li);
+					
+					}
 				
-					var li = '<li class="ui-last-child"><a href="#userItems" id="' + results.rows.item(i).recipient_id + '" onClick="app.onUserButtonClick(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
-					$('#recipientlist').append(li);
-				}
+				});
 			});
-		});
-	},
+		
+		},
 	
+			
 	onUserButtonClick: function(recipient_id) 
 	{
-		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 		
 		//wipe userItems page
 		alert(recipient_id);
@@ -200,50 +199,45 @@ var app =
 		
 		//load list of product ID's related to this user ID     from  purchases table          
 		
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 		
-		
-		db.transaction(function (tx) 
+		db.transaction(function (tx, results) 
 		{  
-			tx.executeSql('SELECT * FROM purchases WHERE rec_id=?', [recipient_id],
-			 
-				function (tx, results) 
-				{				
-					var q = "";
-					for (var i = 0; i < results.rows.length; i++)
-					{
-						q += (q == "" ? "" : ", ") + "?";
-					}
-
-					//load list of product details from items table
-					db.readTransaction(function (tx, results) {
-						tx.executeSql('SELECT * FROM items WHERE item_id IN (' + q + ')', [results], 
-							function (tx, results) 
-							{
-								//loop over list of items and add details to the userItems page elements
-								//$('someItemInaList').append('<div> <p>some details about product </p> </div>')
-
-								
-								for(var i=0; i<results.rows.length; i++)
-								{					
-									
-									alert(results.rows.item(i).product_name);
-									
-									//loop over 
-									
-									var li2 = '<li class="ui-last-child"><a href="#userItems" id="' + data.rows.item(i).item_id + '" onClick="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + data.rows.item(i).product_name + '</a></li>';
-									$('#userItemsList').append(li2);
-								}
-								
-							},
+			tx.executeSql('SELECT ite_id FROM purchases WHERE rec_id= ?', [recipient_id], 
+			
+			function (tx, results) 
+			{
+				var q = "";
+				for (var i = 0; i < results.length; i++)
+				{
+					q += (q == "" ? "" : ", ") + "?";
+				}
+		
+				//load list of product details from items table
+				db.transaction(function (tx) 
+				{
+					tx.executeSql('SELECT ite_id FROM purchases WHERE lables IN (' + q + ')', results, 
+		
+				function (tx, data) 
+				{
 				
-							function (tx, error) {}
-						);
-			
-					});
-				}, 
-			
+					//loop over list of items and add details to the userItems page elements
+					//$('someItemInaList').append('<div> <p>some details about product </p> </div>')
+				
+				},
+		
+		
 				function (tx, error) {}
 			);
+		
 		});
-	}	
+		}, 
+		
+		function (tx, error) {}
+		
+		);
+		});
+	}
+
+	
 };
