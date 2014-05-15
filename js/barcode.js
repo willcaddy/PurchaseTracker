@@ -215,8 +215,8 @@ var app =
 					}
 
 					//load list of product details from items table
-					db.readTransaction(function (tx, results) {
-						tx.executeSql('SELECT * FROM items WHERE item_id IN (' + q + ')', [results], 
+					db.transaction(function (tx, q, results) {
+						tx.executeSql('SELECT * FROM items WHERE item_id IN (' + q + ')', [results.rows.item(i)], 
 							function (tx, results) 
 							{
 								//loop over list of items and add details to the userItems page elements
