@@ -58,9 +58,9 @@ var app =
 			
 			//Test results
 		
-//			tx.executeSql('INSERT INTO purchases VALUES (1,5449000000996)');
-//			
-//			tx.executeSql('INSERT INTO purchases VALUES (2,5449000000996)');
+			//tx.executeSql('INSERT INTO purchases VALUES (1,5000118047794)');
+	
+			//tx.executeSql('INSERT INTO purchases VALUES (2,5000118047794)');
 		});
 	},
 	
@@ -178,10 +178,9 @@ var app =
 		{
 			tx.executeSql('SELECT * FROM recipients', [], function (tx, results)
 			{
-				for(var i=0; i<results.rows.length; i++)
+				for(var i = 0; i < results.rows.length; i++)
 				{					
-				//loop over 
-				
+					//loop over
 					var li = '<li class="ui-last-child"><a href="#userItems" id="' + results.rows.item(i).recipient_id + '" onClick="app.onUserButtonClick(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
 					$('#recipientlist').append(li);
 				}
@@ -194,49 +193,45 @@ var app =
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 		
 		//wipe userItems page
-		alert(recipient_id);
 		
 		$('#userItemsList').empty();
 		
 		//load list of product ID's related to this user ID     from  purchases table          
 		
-		
-		
 		db.transaction(function (tx) 
 		{  
 			tx.executeSql('SELECT * FROM purchases WHERE rec_id=?', [recipient_id],
 			 
-				function (tx, results) 
-				{				
+				function (tx, results)
+				{
 					var q = "";
+					var resultStrings = new Array(results.rows.length);
 					for (var i = 0; i < results.rows.length; i++)
 					{
 						q += (q == "" ? "" : ", ") + "?";
+						resultStrings[i] = results.rows.item(i).ite_id;
 					}
 
 					//load list of product details from items table
-					db.transaction(function (tx, q, results) {
-						tx.executeSql('SELECT * FROM items WHERE item_id IN (' + q + ')', [results.rows.item(i)], 
-							function (tx, results) 
+					db.transaction(function (tx)
+					{
+						tx.executeSql('SELECT * FROM items WHERE item_id IN (' + q + ')', resultStrings, 
+							function (tx, data) 
 							{
 								//loop over list of items and add details to the userItems page elements
 								//$('someItemInaList').append('<div> <p>some details about product </p> </div>')
-
-								
-								for(var i=0; i<results.rows.length; i++)
-								{					
-									
-									alert(results.rows.item(i).product_name);
-									
+								for(var i = 0; i < data.rows.length; i++)
+								{												
 									//loop over 
-									
 									var li2 = '<li class="ui-last-child"><a href="#userItems" id="' + data.rows.item(i).item_id + '" onClick="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + data.rows.item(i).product_name + '</a></li>';
 									$('#userItemsList').append(li2);
 								}
-								
 							},
 				
-							function (tx, error) {}
+							function (tx, error)
+							{
+								alert(error.message);
+							}
 						);
 			
 					});
