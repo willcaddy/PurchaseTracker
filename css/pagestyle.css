@@ -4,3 +4,9 @@
 #menu_head {
 	line-height: 0;
 }
+
+.centre {
+	display: table;
+  	margin: 0 auto;
+	text-align:center;
+}

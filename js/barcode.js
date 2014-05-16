@@ -49,16 +49,16 @@ var app =
 	{
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 		db.transaction(function (tx)
-		{ 
+		{ 		
 			tx.executeSql('CREATE TABLE IF NOT EXISTS recipients (recipient_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)');
 			
-			tx.executeSql('CREATE TABLE IF NOT EXISTS items (item_id UNIQUE, product_name TEXT, product_desc TEXT)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS items (item_id UNIQUE, product_name TEXT, product_desc TEXT, imageUrl TEXT)');
 			
 			tx.executeSql('CREATE TABLE IF NOT EXISTS purchases (rec_id TEXT, ite_id TEXT)');
 			
 			//Test results
 		
-			//tx.executeSql('INSERT INTO purchases VALUES (1,5000118047794)');
+			//tx.executeSql('INSERT INTO purchases VALUES (1,5449000000996)');
 	
 			//tx.executeSql('INSERT INTO purchases VALUES (2,5000118047794)');
 		});
@@ -131,11 +131,12 @@ var app =
 			
 			productName = ParsedJSON.product.attributes.product;
 			productDesc = ParsedJSON.product.attributes.description;
+			productImageUrl = ParsedJSON.product.image;
 
 			var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
 			db.transaction(function (tx)
 			{
-				tx.executeSql('INSERT INTO items (item_id, product_name, product_desc) VALUES (?,?,?)', [barcode, productName, productDesc]);
+				tx.executeSql('INSERT INTO items (item_id, product_name, product_desc, imageUrl) VALUES (?,?,?,?)', [barcode, productName, productDesc, productImageUrl]);
 			});
 			
 		}
@@ -223,7 +224,8 @@ var app =
 								for(var i = 0; i < data.rows.length; i++)
 								{												
 									//loop over 
-									var li2 = '<li class="ui-last-child"><a href="#userItems" id="' + data.rows.item(i).item_id + '" onClick="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + data.rows.item(i).product_name + '</a></li>';
+									var li2 = '<li class="ui-last-child"><a href="#itemDetails" id="' + data.rows.item(i).item_id + '" onClick="app.onItemButtonClick(id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + data.rows.item(i).product_name + '</a></li>';
+									
 									$('#userItemsList').append(li2);
 								}
 							},
@@ -240,5 +242,23 @@ var app =
 				function (tx, error) {}
 			);
 		});
-	}	
+	},	
+	
+	
+	onItemButtonClick: function (id)
+	{
+		$('#itemDetailsContainer').empty();
+		
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
+		
+		db.transaction(function (tx)
+		{
+			tx.executeSql('SELECT * FROM items WHERE item_id=?', [id], function (tx, results)
+			{															
+					var li = '<div><h4>' + results.rows.item(0).product_name + '</h4><img src="' + results.rows.item(0).imageUrl + '" width="auto" height="auto" alt="Product Image"><br><p>' + results.rows.item(0).product_desc + '</p></div>';
+					$('#itemDetailsContainer').append(li);
+			});
+		});
+		
+	}
 };
