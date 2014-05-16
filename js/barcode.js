@@ -104,7 +104,7 @@ var app =
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
         scanner.scan( function (result) { 
-		var barcode = "5449000000996"; //result.text;
+		var barcode =  result.text; //"5449000000996";
 		var apikey = "C3BF9F2C53232A92";
 		var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
 		
@@ -123,8 +123,6 @@ var app =
 			productDesc = ParsedJSON.product.attributes.description;
 			productImageUrl = ParsedJSON.product.image;
 			
-			var barcode2 = barcode;
-
 			var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
 			db.transaction(function (tx)
 			{
@@ -136,7 +134,7 @@ var app =
 			var r=confirm("Would you like to add this item to a recipient?");
 				if (r==true)
 				{
-					app.onItemAddConfirm(barcode2);
+					app.onItemAddConfirm(barcode);
 				}
 				
 				else
@@ -271,7 +269,7 @@ var app =
 		
 	},
 	
-	onItemAddConfirm: function (barcode2)
+	onItemAddConfirm: function (barcode)
 	{		
 		window.location.href="#addItem";
 		
@@ -286,7 +284,7 @@ var app =
 					for(var i = 0; i < results.rows.length; i++)
 					{	
 														
-					var li = '<li class="ui-last-child"><a href="#itemDetails" id="' + results.rows.item(i).recipient_id + "," + barcode2 + '" onClick="app.onItemAddConfirm2(id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+					var li = '<li class="ui-last-child"><a href="#itemDetails" id="' + results.rows.item(i).recipient_id + "," + barcode + '" onClick="app.onItemAddConfirm2(id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
 					$('#addItemContainer').append(li);
 					
 					}
