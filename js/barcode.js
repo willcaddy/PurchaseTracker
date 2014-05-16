@@ -122,6 +122,8 @@ var app =
 			productName = ParsedJSON.product.attributes.product;
 			productDesc = ParsedJSON.product.attributes.description;
 			productImageUrl = ParsedJSON.product.image;
+			
+			var barcode2 = barcode;
 
 			var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);				
 			db.transaction(function (tx)
@@ -134,7 +136,7 @@ var app =
 			var r=confirm("Would you like to add this item to a recipient?");
 				if (r==true)
 				{
-					app.onItemAddConfirm(app.scanner.scan.barcode);
+					app.onItemAddConfirm(barcode2);
 				}
 				
 				else
@@ -269,7 +271,7 @@ var app =
 		
 	},
 	
-	onItemAddConfirm: function (barcode)
+	onItemAddConfirm: function (barcode2)
 	{		
 		window.location.href="#addItem";
 		
@@ -284,7 +286,7 @@ var app =
 					for(var i = 0; i < results.rows.length; i++)
 					{	
 														
-					var li = '<li class="ui-last-child"><a href="#itemDetails" id="' + results.rows.item(i).recipient_id + "," + barcode + '" onClick="app.onItemAddConfirm2(id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+					var li = '<li class="ui-last-child"><a href="#itemDetails" id="' + results.rows.item(i).recipient_id + "," + barcode2 + '" onClick="app.onItemAddConfirm2(id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
 					$('#addItemContainer').append(li);
 					
 					}
