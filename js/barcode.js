@@ -101,9 +101,9 @@ var app =
 	{
         console.log('scanning');
 
-        /*var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
-        scanner.scan( function (result) {*/ 
+        scanner.scan( function (result) { 
 		var barcode = "5449000000996"; //result.text;
 		var apikey = "C3BF9F2C53232A92";
 		var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
@@ -146,6 +146,10 @@ var app =
 		{
 			alert("Something went horribly wrong: " + request.readyState + ", " + request.status);
 		}
+		
+		//Code to check if the barcode is a QR Code and if so open the link in the browser plugin
+		//Unfortunately I didnt have time to implement
+		
 			/*alert("We got a barcode\n" + 
             "Result: " + result.text + "\n" + 
             "Format: " + result.format + "\n" + 
@@ -167,6 +171,7 @@ var app =
         /*}, function (error) { 
             console.log("Scanning failed: ", error); 
         } );*/
+	});
     },
 	
 	menu: function()
