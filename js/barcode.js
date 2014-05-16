@@ -170,7 +170,7 @@ var app =
 	menu: function()
 	{
 		//clear recipient list
-		$( '#recipientlist' ).empty();
+		document.getElementById(recipientlist).innerHTML = "";
 		
 		//load recipients from db
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
@@ -182,8 +182,7 @@ var app =
 				for(var i = 0; i < results.rows.length; i++)
 				{					
 					//loop over
-					var li = '<li class="ui-last-child"><a href="#userItems" id="' + results.rows.item(i).recipient_id + '" onClick="app.onUserButtonClick(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
-					$('#recipientlist').append(li);
+					document.getElementById(recipientlist).innerHTML = '<li class="ui-last-child"><a href="#userItems" id="' + results.rows.item(i).recipient_id + '" onClick="app.onUserButtonClick(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
 				}
 			});
 		});
