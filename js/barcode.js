@@ -107,27 +107,17 @@ var app =
 		var barcode = "5449000000996"; //result.text;
 		var apikey = "C3BF9F2C53232A92";
 		var url = "http://eandata.com/feed/?v=3&keycode=" + apikey + "&mode=json&find=" + barcode;
-	
-		alert(url);
 		
 		var request = new XMLHttpRequest();
 		request.open('GET', url, false);
 		
 		request.send();
 	
-		alert("Response recieved " + request.readyState + ", " + request.status);
-	
 		if (request.readyState==4 && request.status==200)
 		{
 			var XMLHttpResponse = request.responseText;
 
-			alert(XMLHttpResponse);	
-
 			var ParsedJSON = JSON.parse(XMLHttpResponse);
-
-			alert(ParsedJSON.product.attributes.product);			
-
-			alert(url);
 			
 			productName = ParsedJSON.product.attributes.product;
 			productDesc = ParsedJSON.product.attributes.description;
@@ -138,6 +128,18 @@ var app =
 			{
 				tx.executeSql('INSERT INTO items (item_id, product_name, product_desc, imageUrl) VALUES (?,?,?,?)', [barcode, productName, productDesc, productImageUrl]);
 			});
+			
+			alert("Successfully scanned item!");
+			
+			var r=confirm("Would you like to add this item to a recipient?");
+				if (r==true)
+				{
+					app.onItemAddConfirm(barcode);
+				}
+				
+				else
+				{
+				}
 			
 		}
 		else
@@ -260,5 +262,52 @@ var app =
 			});
 		});
 		
+	},
+	
+	onItemAddConfirm: function (barcode)
+	{		
+		window.location.href="#addItem";
+		
+		$('#addItemContainer').empty();
+		
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);	
+		
+		db.transaction(function (tx)
+		{
+			tx.executeSql('SELECT * FROM recipients', [], function (tx, results)
+			{															
+					for(var i = 0; i < results.rows.length; i++)
+					{	
+														
+					var li = '<li class="ui-last-child"><a href="#itemDetails" id="' + results.rows.item(i).recipient_id + "," + barcode + '" onClick="app.onItemAddConfirm2(id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + results.rows.item(i).first_name + ' ' + results.rows.item(i).last_name + '</a></li>';
+					$('#addItemContainer').append(li);
+					
+					}
+			}); 
+		});
+		
+	},
+	
+	onItemAddConfirm2: function (id)
+	{
+		
+		var array = id.split(',');
+		
+		alert(id);
+				
+		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
+		
+		db.transaction(function (tx)
+		{
+			tx.executeSql('SELECT * FROM recipients', [], function (tx, results)
+			{															
+				tx.executeSql('INSERT INTO purchases (rec_id, ite_id) VALUES (?,?)', array);
+			});
+			
+			alert("Successfully added item to recipient");
+			
+			window.location.href="#page";
+			
+		});
 	}
 };

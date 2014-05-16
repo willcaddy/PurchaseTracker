@@ -38,18 +38,16 @@
         <div data-role="header">
             <a href="#mypanel" data-role="button" data-inline="true" data-mini="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-c" id="mainmenu"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span></span></a>
             
-            <h1>Page One</h1>
+            <h1>PurchaseTracker</h1>
 
             <a href="#" class="topcoat-button" id="scan">Scan Item</a>
             
         </div>
         
-        <div data-role="content">	
-            <ul data-role="listview">
-                <li><a href="#page2">Item 1</a></li>
-                <li><a href="#page3">Item 2</a></li>
-                <li><a href="#page4">Item 3</a></li>
-            </ul>		
+        <div class="centre" data-role="content">	
+        
+        <img src="images/shopping_bag.jpg" width="294" height="298" alt="Shopping Bag"> 
+        
         </div>
             
         <div data-role="footer">
@@ -58,70 +56,6 @@
     </div>
 
 <!--------------------------------Page one end-------------------------------->
-
-
-<!-------------------------------Page two start------------------------------->
-
-    <div data-role="page" id="page2">
-    
-        <div data-role="header">
-            <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-            <h1>Page Two</h1>
-        </div>
-        
-        <div data-role="content">	
-        	Content		
-        </div>
-        
-        <div data-role="footer">
-            <h4></h4>
-        </div>
-    </div>
-
-<!--------------------------------Page one end-------------------------------->
-
-
-<!------------------------------Page three start------------------------------>
-
-    <div data-role="page" id="page3">
-    
-        <div data-role="header">
-        <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-            <h1>Page Three</h1>
-        </div>
-        
-        <div data-role="content">	
-            Content		
-        </div>
-        
-        <div data-role="footer">
-            <h4></h4>
-        </div>
-    </div>
-
-<!-------------------------------Page three end------------------------------->
-
-
-<!-------------------------------Page four start------------------------------>
-
-    <div data-role="page" id="page4">
-    
-    	<a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
-    
-        <div data-role="header">
-            <h1></h1>
-        </div>
-        
-        <div data-role="content">	
-            Content		
-        </div>
-        
-        <div data-role="footer">
-            <h4></h4>
-        </div>
-    </div>
-
-<!-------------------------------Page four end-------------------------------->
 
 
 <!-------------------------Add recipient page stert--------------------------->
@@ -193,6 +127,32 @@
     </div>
 
 <!-------------------------------itemDetails Page end-------------------------------->
+
+<!------------------------------addItem Page start----------------------------->
+
+    <div data-role="page" id="addItem">
+    
+    	<div data-role="header">
+        
+        <a href="index.html" data-role="button" data-inline="true" data-theme="a">Back</a>
+        
+            <h1>Add Item</h1>
+        </div>
+        
+        <div data-role="content">	
+            <div id="addItemContainer" class="centre">
+            
+            
+            
+            </div>
+        </div>
+        
+        <div data-role="footer">
+            <h4></h4>
+        </div>
+    </div>
+
+<!-------------------------------addItem Page end-------------------------------->
 
 	<script type="text/javascript">
     	app.initialize();
