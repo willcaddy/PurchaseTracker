@@ -134,7 +134,7 @@ var app =
 			var r=confirm("Would you like to add this item to a recipient?");
 				if (r==true)
 				{
-					app.onItemAddConfirm(barcode);
+					app.onItemAddConfirm(app.scanner.scan.barcode);
 				}
 				
 				else
