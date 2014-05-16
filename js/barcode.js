@@ -292,8 +292,6 @@ var app =
 	{
 		
 		var array = id.split(',');
-		
-		alert(id);
 				
 		var db = openDatabase('maindb', '1.0', 'Database to store recipients and items ', 2 * 1024 * 1024);
 		
